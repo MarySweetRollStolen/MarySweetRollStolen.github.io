@@ -209,6 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function changeSpeed() {
+        
         if(timerId){
         let slider = document.getElementById("speedRange")
         clearInterval(timerId)
@@ -216,8 +217,11 @@ document.addEventListener('DOMContentLoaded', () => {
         timerId = setInterval(moveDown, slider.value)
         nextRandom = Math.floor(Math.random()*theTetrominoes.length)
         displayShape()
+        
         }
+
     }
+
     document.getElementById('speedRange').addEventListener('change', changeSpeed)
 
     startButton.addEventListener('click', startGame)
@@ -268,7 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(timerId)
             document.removeEventListener('keyup', control)
             startButton.removeEventListener('click', startGame)
-            document.getElementById('refreshButton').style.visibility = 'visible';
+            document.getElementById('speedRange').removeEventListener('change', changeSpeed)
+            document.getElementById('refreshButton').style.visibility = 'visible'
         }
     }
 
