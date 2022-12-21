@@ -93,7 +93,7 @@ body{
 }
 
 #soundButton {
-    background-image: url('images/off.JPG');
+    background-image: url('images/off.jpg');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
