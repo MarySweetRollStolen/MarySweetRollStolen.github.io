@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.querySelector('#start-button')
     const width = 10
     let nextRandom = 0
-    let nextRandomColor = 0
     let timerId
     let score = 0
     const sound = document.getElementById('sound')
     const soundButton = document.getElementById('soundButton')
     let soundFlag = 0
-    let isFirstSoundPlay = true;
+    let isFirstSoundPlay = true
 
     document.getElementById('rulesButton').addEventListener('click', () => {
         document.querySelector('.popup-back').style.display = "flex"
@@ -30,21 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'blueviolet',
         'chartreuse',
         'red',
-        'pink',
-        '#d53a9d',
-        'black',
-        'blue',
-        'white',
-        '#b0f542'
+        'pink'
     ]
-
-    // const classBlockList = [
-    //     'url(images/picture.jpg)',
-    //     'url(images/chess.jpg)',
-    //     'url(images/.jpg)',
-    //     'url(images/pizza.jpg)',
-    //     'url(images/clock.jpg)'
-    // ]
 
     const lTetromino = [
         [1, width+1, width*2+1, 2],
@@ -89,12 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let current = theTetrominoes[random][currentRotation]
     let currentPosition = 4
 
-    //draw the first rotation in the first tetromino
     function draw() {
         current.forEach(index => {
-            
-            // squares[currentPosition + index].classList.add('block')
-            // squares[currentPosition + index].style.backgroundImage = classBlockList[random]
             squares[currentPosition + index].classList.add('tetromino')
             squares[currentPosition + index].style.backgroundColor = color[random]
         })
@@ -102,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function undraw() {
         current.forEach(index => {
-            // squares[currentPosition + index].classList.remove('block')
-            // squares[currentPosition + index].style.backgroundImage = 'none'
             squares[currentPosition + index].classList.remove('tetromino')
             squares[currentPosition + index].style.backgroundColor = ''
         })
@@ -122,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             moveDown()
         }
     }
-    document.addEventListener('keyup', control)
+    
 
     function moveDown(){
         undraw()
@@ -135,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(current.some(index => squares[currentPosition + index +width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
             random = nextRandom
-            //nextRandomColor = nextRandom
             nextRandom = Math.floor(Math.random()*theTetrominoes.length)
-            // nextRandomColor = Math.floor(Math.random()*color.length)
             current = theTetrominoes[random][currentRotation]
             currentPosition = 4
             draw()
@@ -237,12 +215,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.getElementById('speedRange').addEventListener('change', changeSpeed)
 
-    startButton.addEventListener('click', () =>{
+    startButton.addEventListener('click', startGame)
+    function startGame(){
         if(timerId){
             clearInterval(timerId)
             timerId = null
             startButton.innerHTML = 'play'
+            document.removeEventListener('keyup', control)
         } else {
+            document.addEventListener('keyup', control)
             draw()
             let slider = document.getElementById("speedRange")
             timerId = setInterval(moveDown, slider.value)
@@ -254,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playPause()
             isFirstSoundPlay = false
         }
-    })
+    }
 
 
     function addScore() {
@@ -265,10 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 score += 10
                 scoreDisplay.innerHTML= score
                 row.forEach(index => {
-                    // squares[index].classList.remove('block')
                     squares[index].classList.remove('tetromino')
                     squares[index].classList.remove('taken')
-                    //squares[currentPosition + index].style.backgroundImage = 'none'
                     squares[index].style.backgroundColor = ''
                 })
                 const squaresRemoved = squares.splice(i, width)
@@ -283,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
             scoreDisplay.innerHTML = 'end'
             clearInterval(timerId)
             document.removeEventListener('keyup', control)
+            startButton.removeEventListener('click', startGame)
         }
     }
 
