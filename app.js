@@ -24,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open("https://www.youtube.com/watch?v=hNE2CLn9uk0");
     })
 
+    document.getElementById('refreshButton').addEventListener('click', () => {
+        window.location.href=window.location.href;
+    })
+
+
     const color = [
         'yellow',
         'blueviolet',
@@ -263,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(timerId)
             document.removeEventListener('keyup', control)
             startButton.removeEventListener('click', startGame)
+            document.getElementById('refreshButton').style.visibility = 'visible';
         }
     }
 

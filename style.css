@@ -116,6 +116,16 @@ body{
     background-size: cover;
 }
 
+#refreshButton {
+    visibility: hidden;
+    margin-top: 45px;
+    background-image: url('images/refresh.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .slidecontainer {
     width: 80%;
     border: 3px black;
