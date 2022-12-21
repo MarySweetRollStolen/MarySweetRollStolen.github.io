@@ -222,6 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    document.getElementById('speedRange').addEventListener('keydown', (event) => {
+    event.preventDefault()
+    return false })
+
+    
     document.getElementById('speedRange').addEventListener('change', changeSpeed)
 
     startButton.addEventListener('click', startGame)
